@@ -7,6 +7,7 @@ import {RegisterPage} from "../page-objects/RegisterPage";
 import {v4 as uuidv4} from "uuid";
 import {DeliveryDetails} from "../page-objects/DeliveryDetails";
 import {deliveryDetails as userAddress} from "../data/deliveryDetails";
+import {PaymentPage} from "../page-objects/PaymentPage";
 
 test.only("New user full end-to-end test journey", async ({page})=>{
     const productsPage = new ProductsPage(page);
@@ -38,4 +39,7 @@ test.only("New user full end-to-end test journey", async ({page})=>{
     await deliveryDetails.fillDetails(userAddress);
     await deliveryDetails.saveDetails();
     await deliveryDetails.continueToPayment();
+
+    const paymentPage = new PaymentPage(page);
+    await paymentPage.activeDiscount();
 })
