@@ -57,7 +57,12 @@ export class PaymentPage {
 
         await this.cvv.waitFor();
         await this.cvv.fill(paymentsDetails.cvvCode);
+    }
 
-        await this.page.pause()
+    completePayment = async ()=>{
+        await this.payButton.waitFor();
+        await this.payButton.click();
+
+        await this.page.waitForURL(/\/thank-you/, {timeout: 3000})
     }
 }
