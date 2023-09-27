@@ -11,6 +11,11 @@ export class PaymentPage {
     this.discountActiveMessage = page.locator('[data-qa="discount-active-message"]');
     this.totalWithDiscountValue =  page.locator('[data-qa="total-with-discount-value"]')
     this.totalValue = page.locator('[data-qa="total-value"]');
+    this.creditCardOwnerName = page.locator('[data-qa="credit-card-owner"]')
+    this.creditCardNumber = page.locator('[data-qa="credit-card-number"]')
+    this.expireDate= page.locator('[data-qa="valid-until"]');
+    this.cvv = page.locator('[data-qa="credit-card-cvc"]');
+    this.payButton = page.locator('[data-qa="pay-button"]');
     }
 
     activeDiscount = async ()=> {
@@ -38,5 +43,21 @@ export class PaymentPage {
         const totalAmount = await this.totalValue.innerText();
 
         expect(parseInt(totalDiscountValue.slice(0, totalDiscountValue.length -1 ))).toBeLessThan(parseInt(totalAmount.slice(0, totalAmount.length - 1)))
+    }
+
+    fillPaymentDetails = async (paymentsDetails)=>{
+        await this.creditCardOwnerName.waitFor();
+        await this.creditCardOwnerName.fill(paymentsDetails.name);
+
+        await this.creditCardNumber.waitFor();
+        await this.creditCardNumber.fill(paymentsDetails.cardNumber);
+
+        await this.expireDate.waitFor();
+        await this.expireDate.fill(paymentsDetails.expire);
+
+        await this.cvv.waitFor();
+        await this.cvv.fill(paymentsDetails.cvvCode);
+
+        await this.page.pause()
     }
 }
