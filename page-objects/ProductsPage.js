@@ -23,15 +23,17 @@ export class ProductsPage {
         await expect(specificAddButton).toHaveText("Add to Basket");
         const navigation = new Navigation(this.page);
 
-        if(isDesktopViewport(this.page)){
-        const basketCountBeforeAdding = await navigation.getBasketCount();
+        let basketCountBeforeAdding;
 
+        if(isDesktopViewport(this.page)){
+            basketCountBeforeAdding = await navigation.getBasketCount();
         }
         await specificAddButton.click();
         await expect(specificAddButton).toHaveText("Remove from Basket")
 
+        let basketCountAfterAdding;
         if(isDesktopViewport(this.page)){
-            const basketCountAfterAdding = await navigation.getBasketCount();
+            basketCountAfterAdding = await navigation.getBasketCount();
             expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding)
         }
 }
