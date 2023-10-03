@@ -8,4 +8,10 @@ test.only("My account using cookie injection", async ({page})=>{
 
     const myAccount = new MyAccountPage(page);
     await myAccount.visit();
+
+    await page.evaluate(([loginTokenInsideBrowserCode])=>{
+        document.cookie = "token=" + loginTokenInsideBrowserCode
+    }, [loginToken])
+    await myAccount.visit();
+    await myAccount.waitForPageHeading();
 })
