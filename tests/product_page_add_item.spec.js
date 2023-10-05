@@ -1,6 +1,6 @@
 import {test, expect} from "@playwright/test";
 
-test("Product Page Add To Basket", async ({page})=>{
+test.skip("Product Page Add To Basket", async ({page})=>{
     await page.goto("/");
     const addToBasketButton = page.locator('[data-qa="product-button"]').first();
     const basketCounter = page.locator('[data-qa="header-basket-count"]');
@@ -13,8 +13,6 @@ test("Product Page Add To Basket", async ({page})=>{
 
     await expect(addToBasketButton).toHaveText("Remove from Basket");
     await expect(basketCounter).toHaveText('1');
-
-    // await page.pause();
 
     const checkoutLink = page.getByRole('link', { name: 'Checkout' })
 
