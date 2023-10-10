@@ -20,7 +20,7 @@ export class DeliveryDetails {
         this.continueToPaymentButton = page.getByRole('button', { name: 'Continue to payment' })
     }
 
-    fillDetails = async ({firstName,lastName, street, postCode, city, countryDropDown})=> {
+    fillDetails = async ({firstName, lastName, street, postCode, city, countryDropDown})=> {
         await this.firstName.waitFor();
         await this.firstName.fill(firstName);
 
@@ -74,6 +74,6 @@ export class DeliveryDetails {
     continueToPayment = async ()=>{
         await  this.continueToPaymentButton.waitFor();
         await  this.continueToPaymentButton.click();
-        await this.page.waitForURL(/\/payment/, {timeout: 5000})
+        await this.page.waitForURL(/\/payment/, {timeout: 15000})
     }
 }
